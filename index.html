@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullah Al Mazid - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E2E8F0;
+            background-color: #0F172A;
+            overflow-x: hidden;
+        }
+        #plexus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .nav-links {
+            display: flex;
+        }
+        .mobile-menu-button {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                background-color: #1F2937;
+                padding-bottom: 1rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-button {
+                display: block;
+            }
+        }
+        .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .project-details.active {
+            max-height: 2000px; /* Increased to accommodate image scaling */
+        }
+        .project-details img {
+            max-width: 80%;
+            height: auto;
+            object-fit: contain; /* Ensures image scales without cropping */
+            display: inline-block;
+            margin: 0 auto; /* Centers the image */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <canvas id="plexus-bg"></canvas>
+    <header class="bg-gray-800 bg-opacity-70 backdrop-blur-md sticky top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white rounded-md p-2 hover:bg-gray-700 transition duration-300">ABDULLAH AL MAZID</a>
+            <div class="md:hidden mobile-menu-button">
+                <button id="hamburger-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <div id="nav-links" class="nav-links">
+                <a href="#about" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">About</a>
+                <a href="#education" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">Education</a>
+                <a href="#skills" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">Skills</a>
+                <a href="#research" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">Research</a>
+                <a href="#projects" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">Projects</a>
+                <a href="#contact" class="block py-2 px-4 rounded-md text-white hover:bg-gray-700 transition duration-300">Contact</a>
+            </div>
+        </nav>
+    </header>
+    <main class="relative z-10">
+        <section id="about" class="py-20 px-4 md:px-8 bg-sky-900 bg-opacity-30 border-b-8 border-t-8 border-r-8 border-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-white mb-6">About Me</h2>
+                <img src="github_profile_pic.jpg" alt="Abdullah Al Mazid" class="rounded-full w-36 h-36 mx-auto mb-6 shadow-xl object-cover">
+                <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+                    I’m Abdullah, a curious and dedicated student with a strong interest in technology, research, and problem-solving. I enjoy exploring how things work at a deep level—whether it’s programming, machine learning, or system design—and I’m passionate about applying that knowledge to create practical, real-world solutions. My professional goal is to grow into a role where I can innovate, contribute to impactful projects, and keep learning every day. Beyond academics, I’m driven by the challenge of turning ideas into reality, and I’m always eager to explore new opportunities that push me forward.
+                </p>
+            </div>
+        </section>
+        <section id="education" class="py-20 px-4 md:px-10 bg-gray-900 bg-opacity-50 border-b-8 border-l-8 border-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-white mb-6">Educational Background</h2>
+                <ul class="max-w-3xl mx-auto text-left space-y-4">
+                    <li class="p-6 bg-gray-800 rounded-lg shadow-md transition duration-300 hover:scale-105">
+                        <strong class="text-xl text-cyan-100">Baitush Sharaf Adarsha Kamil Madrasah, Chattogram</strong>
+                        <p class="text-sm italic text-gray-100">Dakhil, 2018</p>
+                    </li>
+                    <li class="p-6 bg-gray-800 rounded-lg shadow-md transition duration-300 hover:scale-105">
+                        <strong class="text-xl text-cyan-100">Chattogram Collegiate School</strong>
+                        <p class="text-sm italic text-gray-100">HSC, 2020</p>
+                    </li>
+                    <li class="p-6 bg-gray-800 rounded-lg shadow-md transition duration-300 hover:scale-105">
+                        <strong class="text-xl text-cyan-100">Bangladesh University of Engineering and Technology (BUET)</strong>
+                        <p class="text-sm italic text-gray-100">BSc in Industrial and Production Engineering, pursuing</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="skills" class="py-20 px-4 md:px-8 bg-gray-500 bg-opacity-30 border-b-8 border-r-8 border-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-white mb-12">Skills</h2>
+                <div class="space-y-12">
+                    <div class="bg-gray-900 bg-opacity-60 p-8 rounded-lg shadow-2xl transition duration-300 border-4 border-green-800 hover:scale-[1.02]">
+                        <h3 class="text-3xl font-bold text-center text-green-400 mb-8">Programming & Web Development</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-blue-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-2.5-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm5 0c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm-2.5-5c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">C</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-blue-500" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-2.5-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm5 0c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm-2.5-5c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">C++</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-yellow-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.75 14.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.25c.414 0 .75.336.75.75s-.336.75-.75.75H7.25zm.5-3.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.5c.414 0 .75.336.75.75s-.336.75-.75.75h-.5zm1.5-3.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.75c.414 0 .75.336.75.75s-.336.75-.75.75h-.75zM12 18c-3.313 0-6-2.687-6-6s2.687-6 6-6 6 2.687 6 6-2.687 6-6 6zm0-10c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.5c.414 0 .75.336.75.75s-.336.75-.75.75h-.5zm1.5 3.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.75c.414 0 .75.336.75.75s-.336.75-.75.75h-.75zm1.5 3.5c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h.5c.414 0 .75.336.75.75s-.336.75-.75.75h-.5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">JavaScript</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-green-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1.5 15.5c0 .828.672 1.5 1.5 1.5s1.5-.672 1.5-1.5-.672-1.5-1.5-1.5-1.5.672-1.5 1.5zM12 4c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm0 14c-3.313 0-6-2.687-6-6s2.687-6 6-6 6 2.687 6 6-2.687 6-6 6zM13.5 10c0-.828-.672-1.5-1.5-1.5s-1.5.672-1.5 1.5.672 1.5 1.5 1.5 1.5-.672 1.5-1.5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Python</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-purple-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-4.5-8.5c.276 0 .5.224.5.5v5c0 .276-.224.5-.5.5s-.5-.224-.5-.5v-5c0-.276.224-.5.5-.5zm1.5-3.5c.276 0 .5.224.5.5v8c0 .276-.224.5-.5.5s-.5-.224-.5-.5v-8c0-.276.224-.5.5-.5zm1.5-1.5c.276 0 .5.224.5.5v10c0 .276-.224.5-.5.5s-.5-.224-.5-.5v-10c0-.276.224-.5.5-.5zm1.5-1.5c.276 0 .5.224.5.5v12c0 .276-.224.5-.5.5s-.5-.224-.5-.5v-12c0-.276.224-.5.5-.5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">PHP</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-orange-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4 15.5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h2.5c.276 0 .5.224.5.5s-.224.5-.5.5H8zm0-3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8zm0-3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5s-.224.5-.5.5h-5zm0-3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">HTML/CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 bg-opacity-60 p-8 rounded-lg shadow-2xl transition duration-300 border-4 border-teal-800 hover:scale-[1.02]">
+                        <h3 class="text-3xl font-bold text-center text-teal-400 mb-8">Engineering & Design Software</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-4.5-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm6 0c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm-3-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">SolidWorks</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">AutoCAD</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.5 4c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm9 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm-4.5 9c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5zm-3 0c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5zm6 0c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">ANSYS</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zM12 6.5c-3.033 0-5.5 2.467-5.5 5.5s2.467 5.5 5.5 5.5 5.5-2.467 5.5-5.5-2.467-5.5-5.5-5.5zm0 9.5c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">MATLAB</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-gray-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-4.5-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm6 0c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zm-3-4c.69 0 1.25.56 1.25 1.25s-.56 1.25-1.25 1.25-1.25-.56-1.25-1.25.56-1.25 1.25-1.25z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">CATIA</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 bg-opacity-60 p-8 rounded-lg shadow-2xl transition duration-300 border-4 border-purple-800 hover:scale-[1.02]">
+                        <h3 class="text-3xl font-bold text-center text-purple-400 mb-8">Office & Data Tools</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-orange-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.5 4c-.828 0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5 1.5-.672 1.5-1.5-.672-1.5-1.5-1.5zm9 0c-.828 0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5 1.5-.672 1.5-1.5-.672-1.5-1.5-1.5zm-4.5 9c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672 1.5-1.5 1.5zM12 18c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">PowerPoint</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-green-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zm-4-10c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm4 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5zm4 0c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Excel</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-blue-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zM12 6.5c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Word</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-indigo-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.5 4c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5s-.224.5-.5.5h-5zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5s-.224.5-.5.5h-5zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Access</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-yellow-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.5 4c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5s-.224.5-.5.5h-5zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5s-.224.5-.5.5h-8zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h5c.276 0 .5.224.5.5s-.224.5-.5.5h-5z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Power BI</span>
+                            </div>
+                            <div class="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-xl shadow-md hover:scale-105 transition duration-300">
+                                <svg class="w-12 h-12 mb-2 text-red-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-4.5 4c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h9c.276 0 .5.224.5.5s-.224.5-.5.5h-9zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h9c.276 0 .5.224.5.5s-.224.5-.5.5h-9zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h9c.276 0 .5.224.5.5s-.224.5-.5.5h-9zm0 3c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h9c.276 0 .5.224.5.5s-.224.5-.5.5h-9z"/></svg>
+                                <span class="text-sm font-semibold text-gray-200">Arduino Code</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Research description-->
+        <section id="research" class="py-20 px-4 md:px-8 bg-white bg-opacity-30 border-b-8 border-l-8 border-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-extrabold text-black mb-6">Research Background</h2>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed text-black">
+            My research focuses on leveraging computational modeling, machine learning, and advanced 
+            simulations to improve material performance, manufacturing processes, and intelligent 
+            decision-making systems. I am particularly interested in additive manufacturing, 
+            nonlinear material modeling, and the integration of AI techniques in engineering workflows.
+            </p>
+
+            <div class="mt-10 max-w-3xl mx-auto bg-gray-200 bg-opacity-70 p-1 rounded-xl shadow-lg text-left border-2 border-blue-100">
+                <!-- Dropdown Header -->
+                <button class="w-full flex justify-between items-center py-3 text-2xl  text-black focus:outline-none" onclick="toggleDropdown(this)">
+                    <span>Selected Publications</span>
+                    <span class="transform transition-transform duration-500">▼</span>
+                </button>
+
+                <!-- Dropdown Content -->
+                <div class="hidden mt-4 space-y-4 text-black">
+                    <ul class="list-disc pl-5">
+                        <li>
+                            <strong>Validation of Temperature Effect on 3D Printed PLA Materials with Finite Element Analysis and Nonlinear Hyperelastic Modeling</strong><br>
+                            Md Zisanul Haque Bhuiyan, Asif Hasan, <strong><u>Abdullah Al Mazid</u></strong>, Ehasanul Islam Rafi, Shadman Shihab<br>
+                            Published in 2024. DOI: 
+                            <a href="https://doi.org/10.46254/BA07.20240046" target="_blank" class="text-blue-600 hover:underline">
+                                10.46254/BA07.20240046
+                            </a>
+                        </li>
+                        <!-- Add more publications here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </section>
+
+
+        <!--Projects description-->
+        <section id="projects" class="py-20 px-4 md:px-8 bg-red-100 bg-opacity-50 border-b-8 border-r-8 border-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-white mb-6">Projects</h2>
+                <div class="space-y-8">
+                    <div class="project-card bg-gray-700 rounded-lg p-6 shadow-xl transition duration-300 hover:scale-[1.02]">
+                        <h3 class="text-2xl font-semibold text-white mb-2">Floor Plan in AutoCAD</h3>
+                        <p class="text-gray-400 mb-4">Designed a detailed 2D floor plan for a residential building using AutoCAD.</p>
+                        <button class="project-toggle-btn border-2 border-blue-900 text-blue-900 bg-sky-300 py-2 px-6 rounded-lg shadow-md transition duration-300 hover:bg-blue-900 hover:text-white hover:border-blue-900">View Details</button>
+                        <div class="project-details mt-4 text-left">
+                            <p class="text-gray-300 mb-4">I led the design of a 2D floor plan for a 3-bedroom residential unit using AutoCAD. The project involved creating precise layouts, incorporating client specifications for room dimensions and utilities, and ensuring compliance with local building codes. The final design was used as a blueprint for construction, reducing planning errors by 20%.</p>
+                            <img src="floorplan.jpg" alt="Floor plan created in AutoCAD" class="rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                    <div class="project-card bg-gray-700 rounded-lg p-6 shadow-xl transition duration-300 hover:scale-[1.02]">
+                        <h3 class="text-2xl font-semibold text-white mb-2">IoT-Enabled Smart Conveyor System</h3>
+                        <p class="text-gray-400 mb-4">Designed an IoT-powered conveyor system integrating quality control, inventory tracking, and automation using Arduino Uno, ESP32, and sensors.</p>
+                        <button class="project-toggle-btn border-2 border-blue-900 text-blue-900 bg-sky-300 py-2 px-6 rounded-lg shadow-md transition duration-300 hover:bg-blue-900 hover:text-white hover:border-blue-900">View Details</button>
+                        <div class="project-details mt-4 text-left">
+                            <p class="text-gray-300 mb-4">
+                                My team and I developed an IoT-driven conveyor system that automates quality control and inventory management. 
+                                The system features a load cell with HX711 amplifier for precise weight measurement, an SG-90 servo motor for 
+                                automated load placement, and an ultrasonic sensor for real-time load detection and counting. 
+                                If underweight items are detected, the conveyor halts via an L298N motor driver to ensure quality assurance. 
+                                Using ESP32, the system transmits live data to the cloud for monitoring stock levels, counts, and overall system performance.
+                            </p>
+                            <ul class="text-gray-300 list-disc list-inside mb-4">
+                                <li>Accurate weight-based activation using Load Cell + HX711</li>
+                                <li>Servo-controlled mechanical arm for consistent placement</li>
+                                <li>Ultrasonic sensor with LED feedback for real-time counting</li>
+                                <li>Fail-safe stoppage for underweight loads</li>
+                                <li>Cloud-based monitoring with ESP32 IoT integration</li>
+                            </ul>
+                            <img src="iot.png" alt="IoT Smart Conveyor System" class="rounded-lg shadow-lg">
+                            <img src="iot_circuit.png" alt="IoT Circuit diagram" class="rounded-lg shadow-lg">
+                            
+                            
+                            <p class="text-gray-400 mt-4">
+                                🔗 <a href="https://lnkd.in/g84TkSqD" target="_blank" class="text-purple-400 hover:underline">View Project Details</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card bg-gray-700 rounded-lg p-6 shadow-xl transition duration-300 hover:scale-[1.02]">
+                            <h3 class="text-2xl font-semibold text-white mb-2">3D Modeling of Buldozer in SolidWorks</h3>
+                            <p class="text-gray-400 mb-4">Created a detailed 3D model of a bulldozer using SolidWorks.</p>
+                            <button class="project-toggle-btn border-2 border-blue-900 text-blue-900 bg-sky-300 py-2 px-6 rounded-lg shadow-md transition duration-300 hover:bg-blue-900 hover:text-white hover:border-blue-900">View Details</button>
+                            <div class="project-details mt-4 text-left">
+                                <p class="text-gray-300 mb-4">I created a detailed 3D model of a bulldozer using SolidWorks. The project involved intricate modeling techniques, assembly of various components, and ensuring the design met all functional requirements.</p>
+                                <img src="" alt="3D model of bulldozer in SolidWorks" class="rounded-lg shadow-lg">
+                            </div>
+                    </div>
+
+
+                    <div class="project-card bg-gray-700 rounded-lg p-6 shadow-xl transition duration-300 hover:scale-[1.02]">
+                        <h3 class="text-2xl font-semibold text-white mb-2">IoT-Enabled Web Application for IPE 419 — Computer-Integrated Manufacturing</h3>
+                        <p class="text-gray-400 mb-4">Developed a web application for real-time communication between IoT sensors and a centralized control interface.</p>
+                        <button class="project-toggle-btn border-2 border-blue-900 text-blue-900 bg-sky-300 py-2 px-6 rounded-lg shadow-md transition duration-300 hover:bg-blue-900 hover:text-white hover:border-blue-900">View Details</button>
+                        <div class="project-details mt-4 text-left">
+                            <p class="text-gray-300 mb-4">
+                                Md Muqtadir Fuad and I developed this web application as part of the IPE 419: Computer-Integrated Manufacturing course at BUET. The platform allows us to receive live data from ESP-based devices, display sensor readings via dynamic graphs, and send responsive commands to actuators based on the collected data.
+                            </p>
+                            <p class="text-gray-300 mb-4">
+                                Md Muqtadir Fuad and I was responsible for the frontend, designing the UI/UX with HTML, Tailwind CSS, and JavaScript, and I also handled deployment and maintenance via cPanel. Additionally, I implemented the backend using PHP and managed MySQL, ensuring real-time data flow between IoT devices and the web interface.
+                            </p>
+                            <p class="text-gray-300 mb-4">
+                                While there is still room for improvement, this working prototype demonstrates our experience integrating web technologies with IoT systems and strengthens our understanding of cyber-physical systems and real-time data management.
+                            </p>
+                            <p class="text-gray-300 mb-4"><strong>Key Technologies:</strong> HTML • Tailwind CSS • JavaScript • PHP • MySQL</p>
+                            <p class="text-gray-300 mb-4">
+                                <strong>Live Preview:</strong> <a href="https://ipe20-buet.top" class="text-sky-300 hover:underline" target="_blank">https://ipe20-buet.top</a><br>
+                                <strong>Github:</strong> <a href="https://lnkd.in/gBSSnyDG" class="text-sky-300 hover:underline" target="_blank">https://lnkd.in/gBSSnyDG</a>
+                            </p>
+                            
+                            <img src="" alt="IoT Web Application Interface" class="rounded-lg shadow-lg">
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="py-20 px-4 md:px-8 bg-gray-900 bg-opacity-50 border-b-1 border-l-8 border-white">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-extrabold text-white mb-6">Get in Touch</h2>
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/abdullahalmazid" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/abdullahalmazid.bd" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.99c0-.528.415-.992 1.054-1.006h2.946v-3h-4c-3.102 0-3.999 1.956-4 3.999v2.001z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:almazid0039@gmail.com" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12.713c-2.761-3.051-6.191-4.708-11-4.708h22c-4.809 0-8.239 1.657-11 4.708zm-12 1.287c.725 3.09 3.197 6 12 6s11.275-2.91 12-6v-6c-1.275 0-3.235 1.55-5.908 3.524-2.584 1.832-4.044 2.476-6.092 2.476-2.049 0-3.509-.644-6.092-2.476-2.673-1.974-4.633-3.524-5.908-3.524v6z"/>
+                        </svg>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/abdullahalmazid" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 .5C5.648.5.5 5.648.5 12c0 5.086 3.292 9.387 7.862 10.91.575.105.786-.25.786-.556v-2.165c-3.197.695-3.868-1.54-3.868-1.54-.523-1.332-1.277-1.688-1.277-1.688-1.046-.716.079-.701.079-.701 1.157.081 1.766 1.188 1.766 1.188 1.029 1.763 2.698 1.254 3.356.959.104-.746.402-1.254.73-1.542-2.553-.29-5.236-1.277-5.236-5.681 0-1.256.448-2.285 1.183-3.09-.119-.29-.513-1.456.112-3.037 0 0 .965-.309 3.165 1.18a10.96 10.96 0 0 1 2.881-.388c.978.005 1.963.132 2.881.388 2.2-1.489 3.164-1.18 3.164-1.18.625 1.581.231 2.747.113 3.037.736.805 1.183 1.834 1.183 3.09 0 4.415-2.686 5.388-5.248 5.672.413.355.782 1.057.782 2.133v3.162c0 .309.21.667.793.554C20.71 21.383 24 17.084 24 12c0-6.352-5.148-11.5-12-11.5z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Google Scholar -->
+                    <a href="https://scholar.google.com/citations?user=ebImuqAAAAAJ&hl=en" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L1.5 9l10.5 7 10.5-7L12 2zM3 10v8l9 4 9-4v-8l-9 6-9-6z"/>
+                        </svg>
+                    </a>
+
+                    <!-- ORCID -->
+                    <a href="https://orcid.org/0009-0003-9834-4652" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0a12 12 0 1012 12A12.013 12.013 0 0012 0zm0 22a10 10 0 1110-10 10.012 10.012 0 01-10 10zm-.75-5h1.5V7h-1.5zm0-10h1.5V5h-1.5z"/>
+                        </svg>
+                    </a>
+
+                    <!-- ResearchGate -->
+                    <a href="https://www.researchgate.net/profile/Abdullah-Mazid" target="_blank" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-teal-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.159 3.257 9.54 7.771 11.176-.106-.949-.202-2.408.042-3.446.223-.968 1.432-6.171 1.432-6.171s-.364-.73-.364-1.811c0-1.697.985-2.963 2.212-2.963 1.043 0 1.548.783 1.548 1.722 0 1.048-.667 2.618-1.01 4.073-.287 1.204.606 2.186 1.794 2.186 2.152 0 3.806-2.27 3.806-5.545 0-2.894-2.081-4.92-5.05-4.92-3.444 0-5.466 2.584-5.466 5.255 0 1.042.401 2.162.902 2.771a.365.365 0 01.084.351c-.092.387-.298 1.204-.339 1.371-.053.223-.174.27-.402.162-1.5-.697-2.437-2.882-2.437-4.64 0-3.773 2.743-7.238 7.905-7.238 4.151 0 7.374 2.961 7.374 6.914 0 4.123-2.597 7.44-6.199 7.44-1.21 0-2.348-.627-2.735-1.364l-.743 2.824c-.268 1.04-1.003 2.341-1.493 3.136A11.982 11.982 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Mobile -->
+                    <a href="tel:01521754965" class="p-3 rounded-full hover:bg-gray-700 transition duration-300">
+                        <svg class="w-8 h-8 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6.62 10.79a15.478 15.478 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V21c0 .55-.45 1-1 1C10.61 22 2 13.39 2 3c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.58.09.33.03.69-.24 1.01l-2.21 2.2z"/>
+                        </svg>
+                    </a>
+
+                </div>
+            </div>
+
+        </section>
+    </main>
+    <footer class="text-center py-6 text-sm text-gray-500 border-b-8 border-l-8 border-white">
+        &copy; 2025 Abdullah Al Mazid. All Rights Reserved.
+    </footer>
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById('plexus-bg');
+            const ctx = canvas.getContext('2d');
+            let width, height, particles;
+            const resizeCanvas = () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = Math.max(document.body.scrollHeight, window.innerHeight);
+                particles = [];
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            };
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            function Particle() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = 1;
+            }
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    const p1 = particles[i];
+                    p1.x += p1.vx;
+                    p1.y += p1.vy;
+                    if (p1.x < 0 || p1.x > width) p1.vx *= -1;
+                    if (p1.y < 0 || p1.y > height) p1.vy *= -1;
+                    ctx.beginPath();
+                    ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = '#C4B5FD';
+                    ctx.fill();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dist = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+                        if (dist < 150) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(196, 181, 253, ${1 - (dist / 150)})`;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        };
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navLinks = document.getElementById('nav-links');
+        hamburgerBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        const projectButtons = document.querySelectorAll('.project-toggle-btn');
+        projectButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const details = button.nextElementSibling;
+                const isActive = details.classList.contains('active');
+                document.querySelectorAll('.project-details').forEach(d => {
+                    d.classList.remove('active');
+                    d.previousElementSibling.textContent = 'View Details';
+                });
+                if (!isActive) {
+                    details.classList.add('active');
+                    button.textContent = 'Hide Details';
+                } else {
+                    details.classList.remove('active');
+                    button.textContent = 'View Details';
+                }
+            });
+        });
+        
+        function toggleDropdown(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector("span:last-child");
+            content.classList.toggle("hidden");
+            arrow.classList.toggle("rotate-180");
+        }
+</script>
+</body>
+</html>
