@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
     <title>Abdullah Al Mazid - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+
         body {
             font-family: 'Inter', sans-serif;
             color: #E2E8F0;
@@ -59,13 +60,33 @@
             display: inline-block;
             margin: 0 auto; /* Centers the image */
         }
+
+        
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200">
     <canvas id="plexus-bg"></canvas>
     <header class="bg-gray-800 bg-opacity-70 backdrop-blur-md sticky top-0 z-50 shadow-lg">
         <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white rounded-md p-2 hover:bg-gray-700 transition duration-300">ABDULLAH AL MAZID</a>
+            <a href="#" class="text-2xl font-bold text-white rounded-md p-2 hover:bg-gray-700 transition duration-300">
+                
+                <p id="intro-text1">
+                </p>
+                <script>
+                    const text1 = `ABDULLAH AL MAZID`;
+                    let j = 0;
+                    const speed1 = 100; // typing speed in ms
+
+                    function typeWriter1() {
+                        if (j < text1.length) {
+                            document.getElementById("intro-text1").innerHTML += text1.charAt(j);
+                            j++;
+                            setTimeout(typeWriter1, speed1);
+                        }
+                    }
+                    document.addEventListener("DOMContentLoaded", typeWriter1);
+                </script>
+            </a>
             <div class="md:hidden mobile-menu-button">
                 <button id="hamburger-btn" class="text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -85,9 +106,8 @@
         <section id="about" class="py-20 px-4 md:px-8 bg-sky-900 bg-opacity-30 border-b-8 border-t-8 border-r-8 border-white">
             <div class="container mx-auto text-center">
                 <h2 class="text-4xl font-extrabold text-white mb-6">About Me</h2>
-                <img src="github_profile_pic.jpg" alt="Abdullah Al Mazid" class="rounded-full w-36 h-36 mx-auto mb-6 shadow-xl object-cover">
-                <p class="max-w-3xl mx-auto text-lg leading-relaxed">
-                    I’m Abdullah, a curious and dedicated student with a strong interest in technology, research, and problem-solving. I enjoy exploring how things work at a deep level—whether it’s programming, machine learning, or system design—and I’m passionate about applying that knowledge to create practical, real-world solutions. My professional goal is to grow into a role where I can innovate, contribute to impactful projects, and keep learning every day. Beyond academics, I’m driven by the challenge of turning ideas into reality, and I’m always eager to explore new opportunities that push me forward.
+                <img src="github_profile_pic.jpg" alt="Abdullah Al Mazid" class="rounded-full w-44 h-44 mx-auto mb-6 shadow-xl object-cover">
+                <p id="intro-text" class="max-w-3xl mx-auto text-lg leading-relaxed whitespace-pre-line">
                 </p>
             </div>
         </section>
@@ -211,11 +231,11 @@
             nonlinear material modeling, and the integration of AI techniques in engineering workflows.
             </p>
 
-            <div class="mt-10 max-w-3xl mx-auto bg-gray-200 bg-opacity-70 p-1 rounded-xl shadow-lg text-left border-2 border-blue-100">
+            <div class="mt-10 max-w-4xl mx-auto bg-gray-200 bg-opacity-70 p-1 rounded-xl shadow-lg text-left border-2 border-blue-100">
                 <!-- Dropdown Header -->
                 <button class="w-full flex justify-between items-center py-3 text-2xl  text-black focus:outline-none" onclick="toggleDropdown(this)">
-                    <span>Selected Publications</span>
-                    <span class="transform transition-transform duration-500">▼</span>
+                    <span class="font-semibold pl-5">Selected Publications</span>
+                    <span class="transform transition-transform duration-500 pr-4">▼</span>
                 </button>
 
                 <!-- Dropdown Content -->
@@ -474,6 +494,24 @@
             content.classList.toggle("hidden");
             arrow.classList.toggle("rotate-180");
         }
-</script>
+
+
+
+
+        const text = `I’m Abdullah, a curious and dedicated student with a strong interest in technology, research, and problem-solving. I enjoy exploring how things work at a deep level—whether it’s programming, machine learning, or system design—and I’m passionate about applying that knowledge to create practical, real-world solutions. My professional goal is to grow into a role where I can innovate, contribute to impactful projects, and keep learning every day. Beyond academics, I’m driven by the challenge of turning ideas into reality, and I’m always eager to explore new opportunities that push me forward.`;
+
+        let i = 0;
+        const speed = 25; // typing speed in ms
+
+        function typeWriter() {
+            if (i < text.length) {
+            document.getElementById("intro-text").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+            }
+        }
+
+        window.onload = typeWriter;
+        </script>
 </body>
 </html>
