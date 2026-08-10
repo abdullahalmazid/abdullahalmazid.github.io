@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IoT-Based Smart Conveyor System — Projects — Abdullah Al Mazid — Industrial & Production Engineer</title>
+<meta name="description" content="A weight-triggered IoT conveyor system with real-time inventory tracking, built for BUET's Computer Integrated Manufacturing course.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/router.js" defer></script>
+<script src="../assets/data/skills-data.js" defer></script>
+<script src="../assets/js/skills.js" defer></script>
+<script src="../assets/js/lightbox.js" defer></script>
+<script src="../assets/data/content.js" defer></script>
+<script src="../assets/js/render.js" defer></script>
+<script src="../assets/js/pagenav.js" defer></script>
+<script src="../assets/js/imageslot.js" defer></script>
+<script src="../assets/js/chrome.js" defer></script>
+</head>
+<body data-page="projects" data-base="../" id="top">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html" data-page="index">Abdullah Al Mazid<span class="dot">.</span></a>
+      <p class="site-tagline">Industrial &amp; Production Engineering &middot; BUET</p>
+    </div>
+  </header>
+  <nav class="site-nav">
+    <div class="wrap">
+      <button class="nav-burger" id="nav-burger" type="button" aria-expanded="false">Menu</button>
+      <ul class="nav-links">
+          <li><a href="../index.html" data-page="index">Home</a></li>
+          <li><a href="../about.html" data-page="about">About</a></li>
+          <li data-submenu="education"><a href="../education.html" data-page="education">Education</a></li>
+          <li data-submenu="experience"><a href="../experience.html" data-page="experience">Experience</a></li>
+          <li data-submenu="projects"><a href="../projects.html" data-page="projects" aria-current="page">Projects</a></li>
+          <li data-submenu="publications"><a href="../publications.html" data-page="publications">Publications</a></li>
+          <li data-submenu="blog"><a href="../blog.html" data-page="blog">Blog</a></li>
+          <li><a href="../achievements.html" data-page="achievements">Achievements</a></li>
+          <li><a href="../gallery.html" data-page="gallery">Gallery</a></li>
+          <li><a href="../contact.html" data-page="contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="wrap" id="page-main">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <div class="detail-head">
+        <div class="card-kicker"><span class="tag-dot project"></span>Automation &middot; Quality &amp; Inventory Control</div>
+        <h1>IoT-Based Smart Conveyor System for Integrated Quality, Inventory and Process Control</h1>
+        <p class="hero-lede">An automated, weight-triggered conveyor system with real-time inventory tracking
+        and remote monitoring over IoT &mdash; built for course IPE 419 (Computer Integrated Manufacturing).</p>
+        <div class="chip-row detail-meta">
+          <span class="chip">BUET &middot; Group B8</span>
+          <span class="chip">ESP32</span>
+          <span class="chip">Load Cell + HX711</span>
+        </div>
+      </div>
+
+      <div class="detail-cover">
+        <img class="viewable" src="../assets/img/projects/iot-smart-conveyor/prototype.jpg"
+        alt="Prototype of the IoT smart conveyor system with sensor and actuator setup">
+      </div>
+
+      <div class="detail-body">
+        <h2>Overview</h2>
+        <p>The system automates a weight-triggered conveyor operation and tracks inventory in real time.
+        A 5kg load cell with an HX711 amplifier detects when an item's weight exceeds a preset threshold
+        (e.g. 200 grams), which starts the conveyor motor &mdash; controlled by an L298N driver and a 6V
+        600RPM DC gear motor. A mechanical arm, driven by an SG-90 micro servo motor, places items onto the
+        belt. An HC-SR04 ultrasonic sensor detects and counts each passing item, giving immediate visual
+        feedback through a green LED. An ESP32 microcontroller provides IoT connectivity for remote
+        monitoring and real-time logging of weight, item count, and system status.</p>
+
+        <h2>Key features</h2>
+        <ul>
+          <li>Weight-triggered start/stop logic using a load cell and HX711 amplifier.</li>
+          <li>Automated item placement via an SG-90 servo-driven mechanical arm.</li>
+          <li>Item counting and visual feedback via an HC-SR04 ultrasonic sensor and status LED.</li>
+          <li>ESP32-based IoT connectivity for remote monitoring and real-time data logging.</li>
+        </ul>
+
+        <div class="project-figure">
+          <img class="viewable" src="../assets/img/projects/iot-smart-conveyor/load-sensor-data.jpg"
+          alt="Output of load sensor data from the conveyor system">
+          <figcaption>Output of load sensor data.</figcaption>
+        </div>
+        <div class="project-figure">
+          <img class="viewable" src="../assets/img/projects/iot-smart-conveyor/ultrasonic-sensor-data.jpg"
+          alt="Output of ultrasonic sensor data from the conveyor system">
+          <figcaption>Output of ultrasonic sensor data.</figcaption>
+        </div>
+
+        <h2>Team</h2>
+        <p>Md. Ahabab Ul Haq, Chowdhury Mouinur Rahman, Most. Noshin Ibnat, Md. Muqtadir Fuad, and
+        <strong>Abdullah Al Mazid</strong> &mdash; supervised by Dr. Nafis Ahmad, Department of IPE, BUET.
+        Course: IPE 419.</p>
+
+        <h2>Links</h2>
+        <ul>
+          <li><a href="https://youtu.be/_iA_Y-_De4U" target="_blank" rel="noopener">Video demonstration</a></li>
+          <li><a href="https://ipe20-buet.top/groups/all_groups/b_8.html" target="_blank" rel="noopener">Project overview page</a></li>
+          <li><a href="https://doi.org/10.13140/RG.2.2.25476.23683" target="_blank" rel="noopener">Poster on ResearchGate</a> &mdash; DOI 10.13140/RG.2.2.25476.23683</li>
+        </ul>
+      </div>
+
+
+    <aside class="sidebar"></aside>
+
+    <div class="page-nav" data-pagenav="projects:iot-smart-conveyor">
+      <noscript>
+        <div class="page-nav-browse"><span class="pn-label">Browse</span> <a href="../index.html">Home</a> &middot; <a href="../about.html">About</a> &middot; <a href="../education.html">Education</a> &middot; <a href="../experience.html">Experience</a> &middot; <a href="../projects.html">Projects</a> &middot; <a href="../publications.html">Publications</a> &middot; <a href="../blog.html">Blog</a> &middot; <a href="../achievements.html">Achievements</a> &middot; <a href="../gallery.html">Gallery</a> &middot; <a href="../contact.html">Contact</a></div>
+      </noscript>
+    </div>
+    </div>
+  </main>
+  <div class="to-top"><a href="#top">Return to top of page &uarr;</a></div>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Copyright &copy; <span id="year">2026</span> Abdullah Al Mazid. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="mailto:abdullahalmazid.bd@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/abdullahalmazid/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/abdullahalmazid" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.facebook.com/abdullahalmazid.bd" target="_blank" rel="noopener">Facebook</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
