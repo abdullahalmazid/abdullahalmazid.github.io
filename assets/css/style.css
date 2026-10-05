@@ -2864,3 +2864,67 @@ a.contact-card:hover {
     text-align: center;
   }
 }
+
+/* Explorer: back button for items opened from inside another item */
+.ex-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 60%;
+  height: 36px;
+  padding: 0 12px 0 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text-2);
+  font: 600 13.5px var(--font-body);
+  cursor: pointer;
+}
+
+.ex-back span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+.ex-back:hover { color: var(--strong); border-color: color-mix(in srgb, var(--accent) 60%, transparent); }
+
+@media (max-width: 900px) {
+  .sheet .ex-full { display: none; }      /* no "Open full page" on phones */
+}
+
+/* ---- Phone home hero: centred and simple ---- */
+.hero-lede-short { display: none; }
+
+@media (max-width: 640px) {
+  .home-hero { padding: 28px 0 40px; }
+  .hero-grid { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+  .hero-grid > div:first-child { display: flex; flex-direction: column; align-items: center; }
+
+  .portrait-wrap { order: -1; width: 128px; justify-self: auto; }
+  .portrait-wrap::before { inset: 6%; border-radius: 50%; filter: blur(26px); }
+  .portrait-frame { border-radius: 50%; padding: 3px; }
+  .portrait-frame img { aspect-ratio: 1 / 1; border-radius: 50%; object-position: center 18%; }
+  .portrait-hint { display: none; }
+
+  .status-pill { font-size: 12.5px; padding: 6px 12px 6px 10px; }
+  .hero-hello { margin: 18px 0 4px; font-size: 15px; }
+  .hero-name { font-size: 34px; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 10px; }
+  .hero-role { font-size: 16px; margin-bottom: 14px; }
+  .hero-role span { display: block; margin-top: 2px; font-size: 14.5px; }
+
+  .home-hero .hero-lede { display: none; }
+  .hero-role .sep { display: none; }
+  .hero-lede-short {
+    display: block;
+    max-width: 34ch;
+    margin: 0 0 22px;
+    color: var(--text-2);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .hero-actions { justify-content: center; width: 100%; }
+  .hero-actions .btn { flex: 1 1 0; }
+  .hero-actions .social-row { justify-content: center; margin: 4px 0 0; }
+
+  .facts { margin-top: 32px; }
+  .fact { text-align: left; }
+}

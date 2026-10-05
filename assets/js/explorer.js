@@ -130,6 +130,7 @@
   }
 
   function fill(ex, item, content) {
+    ex.stack = [];
     var all = items(ex);
     var idx = all.indexOf(item);
     var noun = NOUN[ex.list.getAttribute('data-render')] || 'Item';
@@ -139,7 +140,7 @@
       '<div class="ex-bar">' +
         '<span class="ex-count">' + noun + ' ' + (idx + 1) + ' of ' + all.length + '</span>' +
         '<div class="ex-actions">' +
-          '<a class="btn btn-sm" href="' + url + '">Open full page</a>' +
+          '<a class="btn btn-sm ex-full" href="' + url + '">Open full page</a>' +
           '<button class="ex-close" type="button" aria-label="Close">' + CLOSE + '</button>' +
         '</div>' +
       '</div>';
@@ -150,6 +151,61 @@
     /* lists inside the item (e.g. coursework) and image checks */
     if (window.SiteRender) window.SiteRender.paint(ex.panel);
     else document.dispatchEvent(new CustomEvent('content:rendered'));
+  }
+
+  /* Links inside an opened item that point at another detail page (e.g. a
+     course listed on the BUET page) open in the same panel / sheet, with a
+     back button, instead of leaving the page. */
+  var BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
+  var INNER = /\/(courses|projects|publications|blog|experience|education)\/[^\/]+\.html$/;
+
+  function panelTop(ex) {
+    if (sheetScroll && ex.panel.parentNode === sheetScroll) sheetScroll.scrollTop = 0;
+    else scrollToExplorer(ex);
+  }
+
+  function openSub(ex, url) {
+    load(url).then(function (doc) {
+      var content = build(doc, url);
+      var saved = document.createDocumentFragment();
+      while (ex.panel.firstChild) saved.appendChild(ex.panel.firstChild);
+      var prev = saved.querySelector('.ex-title');
+      ex.stack.push(saved);
+
+      var bar = document.createElement('div');
+      bar.className = 'ex-bar';
+      bar.innerHTML = '<button class="ex-back" type="button">' + BACK + '<span></span></button>' +
+        '<div class="ex-actions"><a class="btn btn-sm ex-full" href="' + url + '">Open full page</a>' +
+        '<button class="ex-close" type="button" aria-label="Close">' + CLOSE + '</button></div>';
+      bar.querySelector('.ex-back span').textContent = prev ? prev.textContent.trim() : 'Back';
+      bar.querySelector('.ex-back').setAttribute('aria-label', 'Back to ' + (prev ? prev.textContent.trim() : 'previous item'));
+      bar.querySelector('.ex-back').addEventListener('click', function () { back(ex); });
+      bar.querySelector('.ex-close').addEventListener('click', function () { close(ex, true); });
+      ex.panel.appendChild(bar);
+      ex.panel.appendChild(content.head);
+      ex.panel.appendChild(content.body);
+      if (window.SiteRender) window.SiteRender.paint(ex.panel);
+      slideIn(ex.panel, 1);
+      panelTop(ex);
+      var t = ex.panel.querySelector('.ex-title');
+      if (t) t.focus({ preventScroll: true });
+    }).catch(function () { window.location.href = url; });
+  }
+
+  function back(ex) {
+    var frag = ex.stack.pop();
+    if (!frag) return;
+    ex.panel.innerHTML = '';
+    ex.panel.appendChild(frag);
+    slideIn(ex.panel, -1);
+    panelTop(ex);
+  }
+
+  function slideIn(el, dir) {
+    if (reduce || !el.animate) return;
+    el.animate([{ opacity: 0, transform: 'translateX(' + (dir * 24) + 'px)' }, { opacity: 1, transform: 'none' }],
+               { duration: 280, easing: 'cubic-bezier(.2,.75,.2,1)' });
   }
 
   function setActive(ex, item) {
@@ -454,8 +510,16 @@
     panel.setAttribute('aria-live', 'polite');
     wrap.appendChild(panel);
 
-    var ex = { wrap: wrap, list: list, panel: panel, active: null, busy: false };
+    var ex = { wrap: wrap, list: list, panel: panel, active: null, busy: false, stack: [] };
     explorers.push(ex);
+
+    panel.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest('.ex-body a[href]');
+      if (!a || a.origin !== window.location.origin || !INNER.test(a.pathname)) return;
+      e.preventDefault();
+      openSub(ex, a.href);
+    });
 
     list.addEventListener('click', function (e) {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
