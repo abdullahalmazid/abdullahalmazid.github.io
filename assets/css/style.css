@@ -2838,3 +2838,29 @@ a.contact-card:hover {
   /* lists stay a normal grid on phones; nothing moves sideways */
   .explorer.is-open { display: block; }
 }
+
+/* Phone footer: just the social icons, copyright and "Back to top" */
+@media (max-width: 640px) {
+  .site-footer .footer-col,
+  .site-footer .footer-brand .brand,
+  .site-footer .footer-brand p,
+  .site-footer .cursor-switch { display: none; }
+
+  .site-footer .footer-grid {
+    display: flex;
+    justify-content: center;
+    padding-top: 22px;
+    padding-bottom: 14px;
+  }
+
+  .site-footer .social-row { justify-content: center; }
+
+  .site-footer .footer-bottom {
+    justify-content: center;
+    gap: 6px 16px;
+    padding-top: 12px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+    font-size: 12.5px;
+    text-align: center;
+  }
+}
