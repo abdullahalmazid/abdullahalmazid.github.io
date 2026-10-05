@@ -32,8 +32,7 @@ window.SITE_DATA = (function () {
     stats: [
       { value: '3.67', label: 'CGPA / 4.00' },
       { value: '3',    label: 'Peer-reviewed papers' },
-      { value: '6',    label: 'Engineering & research projects' },
-      { value: '2026', label: 'BUET, IPE graduate', still: true }
+      { value: '6',    label: 'Engineering projects' }
     ],
 
     /* ------------------------------------------------------------------ */

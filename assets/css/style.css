@@ -2928,3 +2928,17 @@ a.contact-card:hover {
   .facts { margin-top: 32px; }
   .fact { text-align: left; }
 }
+
+/* Figures: three in one row at every width */
+.facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+@media (max-width: 900px) {
+  .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .facts { gap: 8px; }
+  .fact { padding: 14px 10px; text-align: center; }
+  .fact .n { font-size: 24px; }
+  .fact .l { margin-top: 4px; font-size: 12px; line-height: 1.3; }
+}
