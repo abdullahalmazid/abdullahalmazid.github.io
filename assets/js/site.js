@@ -112,11 +112,54 @@
     buildToggle();
     tilt();
 
+    /* Phone menu: a drawer that slides in from the left over part of the
+       screen, with a dimmed backdrop. Tap outside, swipe left or press
+       Escape to close. */
     var burger = document.getElementById('nav-burger');
-    if (burger) {
-      burger.addEventListener('click', function () {
-        var open = document.body.classList.toggle('nav-open');
+    var nav = document.getElementById('site-nav');
+    if (burger && nav) {
+      var head = document.querySelector('.site-header .brand');
+      var cta = document.querySelector('.header-cta');
+      if (head && !nav.querySelector('.drawer-head')) {
+        var dh = document.createElement('div');
+        dh.className = 'drawer-head';
+        dh.appendChild(head.cloneNode(true));
+        nav.insertBefore(dh, nav.firstChild);
+      }
+      if (cta && !nav.querySelector('.drawer-foot')) {
+        var df = document.createElement('div');
+        df.className = 'drawer-foot';
+        var c = cta.cloneNode(true);
+        c.classList.remove('header-cta', 'btn-sm');
+        c.textContent = 'Download CV';
+        df.appendChild(c);
+        nav.appendChild(df);
+      }
+      var shade = document.createElement('div');
+      shade.className = 'nav-backdrop';
+      document.body.appendChild(shade);
+
+      var setOpen = function (open) {
+        document.body.classList.toggle('nav-open', open);
+        document.documentElement.classList.toggle('sheet-locked', open);
         burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      burger.addEventListener('click', function () {
+        setOpen(!document.body.classList.contains('nav-open'));
+      });
+      shade.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && document.body.classList.contains('nav-open')) setOpen(false);
+      });
+      var sx = 0, sdx = 0;
+      nav.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sdx = 0; }, { passive: true });
+      nav.addEventListener('touchmove', function (e) {
+        sdx = Math.min(0, e.touches[0].clientX - sx);
+        if (document.body.classList.contains('nav-open')) nav.style.transform = 'translateX(' + sdx + 'px)';
+      }, { passive: true });
+      nav.addEventListener('touchend', function () {
+        nav.style.transform = '';
+        if (sdx < -60) setOpen(false);
       });
     }
 

@@ -2662,3 +2662,179 @@ a.contact-card:hover {
     transition: width 0.4s ease, height 0.4s ease, padding 0.4s ease, border-radius 0.4s ease, opacity 0.2s ease, transform 0.25s ease;
   }
 }
+
+/* ======================================================================
+   Phone: left drawer menu and bottom sheet (explorer.js)
+   ====================================================================== */
+.sheet-locked,
+.sheet-locked body { overflow: hidden; }
+
+.drawer-head,
+.drawer-foot,
+.nav-backdrop { display: none; }
+
+@media (max-width: 900px) {
+  /* the header can't blur its background here: a blurred parent would trap
+     the fixed drawer inside it */
+  .site-header,
+  .site-header.is-scrolled {
+    background: var(--header-bg-solid);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .site-nav,
+  .nav-open .site-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: min(64vw, 300px);
+    padding: calc(env(safe-area-inset-top, 0px) + 16px) 14px calc(env(safe-area-inset-bottom, 0px) + 18px);
+    border-right: 1px solid var(--border-strong);
+    border-bottom: 0;
+    background: var(--bg-alt);
+    box-shadow: 24px 0 60px -20px var(--shadow);
+    overflow-y: auto;
+    transform: translateX(-104%);
+    transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+    visibility: hidden;
+  }
+
+  .nav-open .site-nav {
+    transform: none;
+    visibility: visible;
+  }
+
+  .drawer-head {
+    display: flex;
+    align-items: center;
+    padding: 4px 6px 16px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .drawer-head .brand-name { max-width: 200px; opacity: 1; margin: 0; }
+
+  .site-nav .nav-links { padding: 0; gap: 4px; }
+
+  .site-nav .nav-links a {
+    padding: 13px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease;
+  }
+
+  .nav-open .site-nav .nav-links a { opacity: 1; transform: none; }
+  .nav-open .site-nav .nav-links li:nth-child(2) a { transition-delay: 0.04s; }
+  .nav-open .site-nav .nav-links li:nth-child(3) a { transition-delay: 0.08s; }
+  .nav-open .site-nav .nav-links li:nth-child(4) a { transition-delay: 0.12s; }
+  .nav-open .site-nav .nav-links li:nth-child(5) a { transition-delay: 0.16s; }
+  .nav-open .site-nav .nav-links li:nth-child(6) a { transition-delay: 0.2s; }
+
+  .drawer-foot {
+    display: block;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  .drawer-foot .btn { width: 100%; }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--overlay);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .nav-open .nav-backdrop { opacity: 1; pointer-events: auto; }
+
+  /* ---- bottom sheet ---- */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    background: var(--overlay);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .sheet-backdrop.is-open { opacity: 1; pointer-events: auto; }
+
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 260;
+    display: flex;
+    flex-direction: column;
+    height: 92vh;
+    height: 92dvh;
+    border: 1px solid var(--border-strong);
+    border-bottom: 0;
+    border-radius: 22px 22px 0 0;
+    background: var(--panel-bg);
+    box-shadow: 0 -20px 60px -20px var(--shadow);
+    transform: translateY(102%);
+    transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.25, 1);
+  }
+
+  .sheet.is-open { transform: translateY(0); }
+  .sheet.is-dragging { transition: none; }
+
+  .sheet-grip {
+    display: grid;
+    place-items: center;
+    flex: 0 0 26px;
+    touch-action: none;
+  }
+
+  .sheet-grip span {
+    width: 42px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--border-strong);
+  }
+
+  .sheet-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .sheet .ex-panel {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .sheet .ex-bar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: var(--panel-bg);
+  }
+
+  /* lists stay a normal grid on phones; nothing moves sideways */
+  .explorer.is-open { display: block; }
+}

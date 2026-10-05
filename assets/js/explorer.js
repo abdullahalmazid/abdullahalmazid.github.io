@@ -15,6 +15,9 @@
    item directly, and Back / Escape close it. Left and right arrow keys step
    through the items.
 
+   On phones (900px and narrower) the item slides up from the bottom in a
+   sheet instead; drag it down, tap outside it, or press Back to close.
+
    If the page is opened straight from disk (file://) browsers block reading
    other files, so cards fall back to opening the full page.
    ========================================================================== */
@@ -254,6 +257,81 @@
   }
 
   /* ---------------------------------------------------------------- */
+  /* Phone: items open in a bottom sheet instead of beside the list    */
+  /* ---------------------------------------------------------------- */
+  var phone = window.matchMedia ? window.matchMedia('(max-width: 900px)') : { matches: false };
+  var sheet = null, sheetScroll = null, backdrop = null, sheetEx = null;
+
+  function buildSheet() {
+    if (sheet) return;
+    backdrop = document.createElement('div');
+    backdrop.className = 'sheet-backdrop';
+    sheet = document.createElement('div');
+    sheet.className = 'sheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-label', 'Details');
+    sheet.innerHTML = '<div class="sheet-grip" aria-hidden="true"><span></span></div><div class="sheet-scroll"></div>';
+    sheetScroll = sheet.querySelector('.sheet-scroll');
+    document.body.appendChild(backdrop);
+    document.body.appendChild(sheet);
+    backdrop.addEventListener('click', function () { if (sheetEx) close(sheetEx, true); });
+
+    /* drag the sheet down to close it */
+    var startY = 0, dy = 0, startT = 0, dragging = false;
+    sheet.addEventListener('touchstart', function (e) {
+      var onGrip = e.target.closest('.sheet-grip, .ex-bar');
+      if (!onGrip && sheetScroll.scrollTop > 0) return;
+      dragging = true; dy = 0;
+      startY = e.touches[0].clientY; startT = Date.now();
+      sheet.classList.add('is-dragging');
+    }, { passive: true });
+    sheet.addEventListener('touchmove', function (e) {
+      if (!dragging) return;
+      dy = Math.max(0, e.touches[0].clientY - startY);
+      if (dy > 0 && sheetScroll.scrollTop <= 0) {
+        sheet.style.transform = 'translateY(' + dy + 'px)';
+        backdrop.style.opacity = String(Math.max(0, 1 - dy / 400));
+      }
+    }, { passive: true });
+    sheet.addEventListener('touchend', function () {
+      if (!dragging) return;
+      dragging = false;
+      sheet.classList.remove('is-dragging');
+      var fast = dy / Math.max(1, Date.now() - startT) > 0.6;
+      sheet.style.transform = '';
+      backdrop.style.opacity = '';
+      if ((dy > 120 || (fast && dy > 40)) && sheetEx) close(sheetEx, true);
+    });
+  }
+
+  function openSheet(ex) {
+    buildSheet();
+    sheetEx = ex;
+    if (ex.panel.parentNode !== sheetScroll) sheetScroll.appendChild(ex.panel);
+    ex.panel.hidden = false;
+    sheetScroll.scrollTop = 0;
+    document.documentElement.classList.add('sheet-locked');
+    requestAnimationFrame(function () {
+      backdrop.classList.add('is-open');
+      sheet.classList.add('is-open');
+    });
+  }
+
+  function closeSheet(ex, done) {
+    backdrop.classList.remove('is-open');
+    sheet.classList.remove('is-open');
+    document.documentElement.classList.remove('sheet-locked');
+    setTimeout(function () {
+      ex.panel.hidden = true;
+      ex.panel.innerHTML = '';
+      ex.wrap.appendChild(ex.panel);      /* back home, in case the screen grows */
+      sheetEx = null;
+      if (done) done();
+    }, reduce ? 0 : 380);
+  }
+
+  /* ---------------------------------------------------------------- */
   /* Open / close                                                      */
   /* ---------------------------------------------------------------- */
   function open(ex, item, push) {
@@ -268,6 +346,16 @@
 
     load(url).then(function (doc) {
       var content = build(doc, url);
+      if (phone.matches) {
+        fill(ex, item, content);
+        setActive(ex, item);
+        ex.sheetOpen = true;
+        openSheet(ex);
+        if (push) history.pushState({ explorer: slug }, '', '#' + slug);
+        var t = ex.panel.querySelector('.ex-title');
+        if (t) t.focus({ preventScroll: true });
+        return;
+      }
       var list = items(ex);
       var wasOpen = ex.wrap.classList.contains('is-open');
       var before = wasOpen ? null : rects(list);
@@ -296,6 +384,17 @@
   }
 
   function close(ex, push) {
+    if (ex.sheetOpen) {
+      ex.sheetOpen = false;
+      if (push) history.pushState('', '', window.location.pathname + window.location.search);
+      var was = ex.active;
+      closeSheet(ex, function () {
+        setActive(ex, null);
+        var a = was && linkOf(was);
+        if (a) a.focus({ preventScroll: true });
+      });
+      return;
+    }
     if (!ex.wrap.classList.contains('is-open') || ex.busy) return;
     var list = items(ex);
     var active = ex.active;
@@ -391,7 +490,7 @@
 
     document.addEventListener('keydown', function (e) {
       if (document.querySelector('.modal-overlay.is-open')) return;
-      var ex = explorers.filter(function (x) { return x.wrap.classList.contains('is-open'); })[0];
+      var ex = explorers.filter(function (x) { return x.wrap.classList.contains('is-open') || x.sheetOpen; })[0];
       if (!ex) return;
       if (e.key === 'Escape') close(ex, true);
       else if (e.key === 'ArrowRight' && !e.target.closest('input, textarea')) step(ex, 1);
