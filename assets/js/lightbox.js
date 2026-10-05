@@ -1,7 +1,7 @@
 /* ==========================================================================
    Image lightbox: any <img class="viewable"> becomes clickable, opening a
    full-size view in an overlay. Click the overlay, the close button, or
-   press Escape to dismiss. Re-wires itself after router-driven page swaps.
+   press Escape to dismiss.
    ========================================================================== */
 (function () {
   function buildLightbox() {
@@ -54,5 +54,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', wire);
-  document.addEventListener('page:swapped', wire);
+  /* images added later (explorer panels) */
+  document.addEventListener('content:rendered', wire);
 })();

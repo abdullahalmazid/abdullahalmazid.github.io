@@ -1,7 +1,7 @@
 /* ==========================================================================
    Renders skill categories/chips from SKILLS_DATA into any
    <div class="skill-groups" id="skills-root"></div> found on the page, and
-   wires up: hover -> tooltip (pure CSS, via data-tip), click -> modal with
+   wires up: hover -> native tooltip (title), click -> modal with
    fuller description + level meter.
    ========================================================================== */
 (function () {
@@ -68,7 +68,7 @@
     window.SKILLS_DATA.forEach(function (group) {
       html += '<div class="skill-group"><h3>' + group.category + '</h3><div class="chip-row">';
       group.skills.forEach(function (skill) {
-        html += '<button type="button" class="skill-chip" data-tip="' +
+        html += '<button type="button" class="skill-chip" title="' +
           skill.blurb.replace(/"/g, '&quot;') + '" data-category="' +
           group.category.replace(/"/g, '&quot;') + '" data-id="' + skill.id + '">' +
           '<span class="lvl-dot"></span>' + skill.name + '</button>';
@@ -87,5 +87,4 @@
   }
 
   document.addEventListener('DOMContentLoaded', render);
-  document.addEventListener('page:swapped', render);
 })();

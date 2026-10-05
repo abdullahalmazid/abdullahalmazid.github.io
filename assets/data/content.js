@@ -1,22 +1,24 @@
 /* ==========================================================================
    content.js — the single source of truth for every listing on this site.
 
-   Listing pages, the homepage sections, and the Previous/Next chains are all
-   rendered from this file by assets/js/render.js and assets/js/pagenav.js.
+   Listing pages (and their explorers), the homepage sections, the About
+   page's education and achievements, and the sidebar lists on detail pages
+   are all rendered from this file by assets/js/render.js.
 
    TO ADD A NEW ITEM: add one object to the right array below, and create the
    matching detail page by copying that folder's _template.html. Nothing else
-   needs editing — the listing page, the homepage section, and the prev/next
-   links on the new page AND its neighbours all update themselves.
+   needs editing — the listing page, the homepage section, and the sidebar
+   lists on other detail pages all update themselves.
 
    Field reference (projects / blog / experience / achievements):
      slug     file name inside the folder, without ".html"
      title    card heading
      kicker   small line above the heading
      summary  one-paragraph description on the card
-     foot     small text in the bottom-left of the card
+     foot     small print under the summary (date, team, place)
      cover    { img: 'assets/img/...', alt: '...' }   a real photo
-              { glyph: 'X' }                          a themed letter instead
+              { glyph: 'X' }                          symbol shown until the
+                                                      photo is added
 
    Paths in `img` are written as if from the site root — the renderer adjusts
    them automatically for pages inside a subfolder.
@@ -25,25 +27,7 @@ window.SITE_DATA = (function () {
   return {
 
     /* ------------------------------------------------------------------ */
-    /* Top-level tabs — order here drives the "Browse" row and the        */
-    /* Previous/Next pair on every top-level page (it wraps around).      */
-    /* ------------------------------------------------------------------ */
-    pages: [
-      { id: 'index',        href: 'index.html',        label: 'Home' },
-      { id: 'about',        href: 'about.html',        label: 'About' },
-      { id: 'education',    href: 'education.html',    label: 'Education' },
-      { id: 'experience',   href: 'experience.html',   label: 'Experience' },
-      { id: 'projects',     href: 'projects.html',     label: 'Projects' },
-      { id: 'publications', href: 'publications.html', label: 'Publications' },
-      { id: 'blog',         href: 'blog.html',         label: 'Blog' },
-      { id: 'achievements', href: 'achievements.html', label: 'Achievements' },
-      { id: 'gallery',      href: 'gallery.html',      label: 'Gallery' },
-      { id: 'contact',      href: 'contact.html',      label: 'Contact' }
-    ],
-
-    /* ------------------------------------------------------------------ */
-    /* Homepage figures. `value` may end in a suffix (e.g. "6+") — the     */
-    /* count-up animation reads the number and keeps whatever follows it.  */
+    /* Homepage figures, shown in one row under the introduction.         */
     /* ------------------------------------------------------------------ */
     stats: [
       { value: '3.67', label: 'CGPA / 4.00' },
@@ -53,21 +37,8 @@ window.SITE_DATA = (function () {
     ],
 
     /* ------------------------------------------------------------------ */
-    /* Home page "click to open" tiles — the big visual entry points.     */
-    /* Each banner is an image slot: until you save the real file, the     */
-    /* tile shows the path to save it to.                                  */
-    /* ------------------------------------------------------------------ */
-    tiles: [
-      { href: 'projects.html',     label: 'Projects',     img: 'assets/img/tiles/projects.jpg' },
-      { href: 'publications.html', label: 'Publications', img: 'assets/img/tiles/publications.jpg' },
-      { href: 'education.html',    label: 'Education',    img: 'assets/img/tiles/education.jpg' },
-      { href: 'experience.html',   label: 'Experience',   img: 'assets/img/tiles/experience.jpg' },
-      { href: 'gallery.html',      label: 'Gallery',      img: 'assets/img/tiles/gallery.jpg' },
-      { href: 'blog.html',         label: 'Blog',         img: 'assets/img/tiles/blog.jpg' }
-    ],
-
-    /* ------------------------------------------------------------------ */
-    /* Publications — text-first cards (no cover slot): a reader scanning  */
+    /* Publications — text-first rows (no cover): year, title, one-line    */
+    /* summary, venue and DOI.                                              */
     /* this page wants the venue and the DOI, not a thumbnail.            */
     /* ------------------------------------------------------------------ */
     publications: [
@@ -75,18 +46,21 @@ window.SITE_DATA = (function () {
         slug: 'egov-lens',
         kicker: 'ICCIT 2025 &middot; IEEE &middot; Conference Paper',
         title: 'eGov-Lens: Multi-Dimensional ML for Aspect-Based Bengali Public Feedback Analysis',
+        summary: 'An aspect-based feedback pipeline for Bengali e-government services, built on 34,000+ annotated comments and benchmarking BanglaBERT, mBERT and bag-of-words models.',
         foot: 'DOI 10.1109/ICCIT68739.2025.11491291'
       },
       {
         slug: 'stochastic-manufacturing',
         kicker: 'IEOM Bangladesh 2025 &middot; Conference Paper',
         title: 'Stochastic Modeling of Throughput-Quality Dynamics in Labor-Intensive Manufacturing',
+        summary: 'Time-and-motion analysis, SPC and Monte Carlo simulation link operator fatigue to process instability on two manual food-production lines, estimating a loss of about 1.7 million BDT a year.',
         foot: 'DOI 10.46254/BA08.20250379'
       },
       {
         slug: 'pla-fea-validation',
         kicker: 'IEOM Bangladesh 2024 &middot; Conference Paper',
         title: 'Validation of Temperature Effect on 3D Printed PLA Materials using FEA &amp; Hyperelastic Modeling',
+        summary: 'Finite element validation of 3D-printed PLA at 20&ndash;40&deg;C using Neo-Hookean, Mooney-Rivlin and Yeoh hyperelastic models in Ansys.',
         foot: 'DOI 10.46254/BA07.20240046'
       }
     ],
@@ -154,8 +128,7 @@ window.SITE_DATA = (function () {
         kicker: 'Industrial Attachment',
         title: 'PRAN-RFL Group',
         summary: 'Observed large-scale FMCG production across beverage, dairy, biscuit, and confectionery lines, studying time-and-motion analysis, production scheduling, and statistical quality control in a live manufacturing environment.',
-        foot: '05 Nov &ndash; 05 Dec 2025 &middot; Dhaka',
-        cover: { glyph: 'P' }
+        foot: '05 Nov &ndash; 05 Dec 2025 &middot; Dhaka'
       }
     ],
 
@@ -188,8 +161,7 @@ window.SITE_DATA = (function () {
         kicker: 'Career &middot; Design &middot; Development',
         title: 'From Debugging Code to Designing Experiences',
         summary: 'I didn\u2019t set out to care about pixels. I set out to solve problems. Somewhere along the way, the two became the same thing.',
-        foot: 'Jan 2025 &middot; 4 min read',
-        cover: { img: 'assets/img/blog/from-debugging-to-designing.jpg', alt: '', glyph: 'D' }
+        foot: 'Jan 2025 &middot; 4 min read'
       }
     ],
 
@@ -201,59 +173,18 @@ window.SITE_DATA = (function () {
       {
         kicker: 'Merit-Based Award &middot; BUET',
         title: 'Deen Scholarship',
-        summary: 'Two-time recipient of this merit-based award recognizing academic excellence at BUET.',
-        cover: { img: 'assets/img/achievements/deen-scholarship.jpg', alt: 'Deen Scholarship certificate', glyph: 'D' }
+        summary: 'Two-time recipient of this merit-based award recognizing academic excellence at BUET.'
       },
       {
         kicker: 'Research &middot; IEEE / IEOM',
         title: 'Three Peer-Reviewed Publications',
-        summary: 'Three peer-reviewed conference publications across IEEE (ICCIT) and IEOM as an undergraduate student &mdash; see the <a href="{base}publications.html">Publications</a> page for details.',
-        cover: { glyph: '3' }
-      }
-    ],
-
-    /* ------------------------------------------------------------------ */
-    /* Gallery — every tile points at a real file path. Until you drop     */
-    /* the actual photo in, the tile shows that path so you know exactly   */
-    /* what to save and where. The moment the file is real, the tile       */
-    /* becomes the photo.                                                  */
-    /* ------------------------------------------------------------------ */
-    gallery: [
-      {
-        img: 'assets/img/gallery/floor-plan-autocad.jpg',
-        tint: 'project',
-        caption: 'A detailed 2D floor plan drafted in AutoCAD &mdash; room layouts, dimensions, walls, doors and windows for a residential building.'
-      },
-      {
-        img: 'assets/img/gallery/iot-conveyor-circuit.png',
-        tint: 'project',
-        caption: 'Circuit diagram for the IoT smart conveyor: an ESP microcontroller wired to IR/proximity sensors, a motor driver module and the DC drive.'
-      },
-      {
-        img: 'assets/img/gallery/iot-dashboard.png',
-        tint: 'publication',
-        caption: 'The IoT data monitoring dashboard, showing live sensor readings in the web interface.'
-      },
-      {
-        img: 'assets/img/gallery/shoe-cleaning-machine.png',
-        tint: 'experience',
-        caption: 'The semi-automated shoe cleaning machine built for the Product Design sessional course.'
-      },
-      {
-        img: 'assets/img/gallery/prototype-build.png',
-        tint: 'achievement',
-        caption: 'Prototype assembly work in progress.'
-      },
-      {
-        img: 'assets/img/gallery/projects-overview.jpg',
-        tint: 'education',
-        caption: 'Project work at BUET.'
+        summary: 'Three peer-reviewed conference publications across IEEE (ICCIT) and IEOM as an undergraduate student &mdash; see the <a href="{base}publications.html">Publications</a> page for details.'
       }
     ],
 
     /* ------------------------------------------------------------------ */
     /* Courses — drives the Relevant Coursework grid on the BUET page and  */
-    /* the Previous/Next chain between individual course pages.            */
+    /* the "Other courses" list beside each course page.                   */
     /* ------------------------------------------------------------------ */
     courses: [
       { slug: 'quality-control-management',        title: 'Quality Control Management' },
